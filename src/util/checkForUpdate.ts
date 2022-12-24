@@ -7,7 +7,7 @@ interface UpdaterManifest {
 	source?: string
 }
 
-interface Manifest extends Omit<Plugin, "onStart" | "onStop" | "onEnable" | "onDisable" | "getSettingsPanel" | "commands" | "patches"> {
+export interface Manifest extends Omit<Plugin, "onStart" | "onStop" | "onEnable" | "onDisable" | "getSettingsPanel" | "commands" | "patches"> {
 	updater?: UpdaterManifest
 }
 
@@ -15,20 +15,16 @@ export default async function checkForUpdate(plugin: Manifest): Promise<Manifest
 	// return null if nothing found
 	if (!plugin.updater) return null
 
-	// Fetch manifest
-	return fetch(plugin.updater.manifest).then(resp => {
-		// If it's ok we continue
-		if (resp.ok) {
-			return resp.json().then((manifest: Manifest) => {
-				// Check if there's a different version
-				if (plugin.version !== manifest.version) {
-					return manifest
-				}
-				// Return null if there isn't				
-				return null
-			})
+	const res = await fetch(plugin.updater.manifest);
+
+	if (res.ok) {
+		const manifest: Manifest = await res.json();
+
+		// Check if there's a different version
+		if (plugin.version !== manifest.version) {
+			return manifest
 		}
-		// Otherwise we return null		
-		return null
-	})
+	}
+	// Otherwise we return null		
+	return null
 }
