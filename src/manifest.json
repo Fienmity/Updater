@@ -1,0 +1,22 @@
+{
+   "name": "Updater",
+   "version": "1.0.0",
+   "description": "Easily update Enmity plugins",
+   "authors": [
+      {
+         "name": "Fiery",
+         "id": "890228870559698955"
+      },
+      {
+         "name": "Acquite",
+         "id": "581573474296791211"
+      }
+   ],
+   "updater": {
+      "plugin": "https://github.com/FierysDiscordAddons/Updater/releases/latest/download/Updater.js",
+      "manifest": "https://github.com/FierysDiscordAddons/Updater/releases/latest/download/manifest.json",
+      "changelog": "Initial release",
+      "source": "https://github.com/FierysDiscordAddons/Updater"
+   },
+   "color": "#2B9EB3"
+}
