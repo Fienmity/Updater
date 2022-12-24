@@ -10,17 +10,27 @@ const Updater: Plugin = {
 
    onStart() {
       const lateStart = () => {
+         // Get plugins that support updater
+         const plugins = getPlugins().filter((plugin: ManifestType) => plugin.updater)
+
+         // Log supported plugins
+         const supportedPrettyString = plugins.map((plugin) => plugin.name).toString().replace(",", ", ")
+         UpdaterLogger.log(`Plugins supporting Updater: ${supportedPrettyString}`)
+
+         // Check for updates
          UpdaterLogger.log("Checking for updates..")
-         getPlugins()
-            .filter((plugin: ManifestType) => plugin.updater)
-            .forEach(plugin => {
-               checkForUpdate(plugin).then(manifest => {
-                  if (manifest) {
-                     UpdaterLogger.log(`Update found for ${plugin.name}`);
-                     Toasts.open({ content: `Update found for ${plugin.name}`, source: 599 })
-                  } else UpdaterLogger.log(`No update found for ${plugin.name}`)
-               })
+         plugins.forEach(plugin => {
+            // Check plugin for update
+            checkForUpdate(plugin).then(manifest => {
+               // If it returns something not null, there is a update
+               if (manifest) {
+                  // Log and notify user that there's a update
+                  UpdaterLogger.log(`Update found for ${plugin.name}`);
+                  Toasts.open({ content: `Update found for ${plugin.name}`, source: 599 })
+               // Log that there wasn't a update too
+               } else UpdaterLogger.log(`No update found for ${plugin.name}`)
             })
+         })
       }
 
       setTimeout(lateStart, 1000)
