@@ -7,7 +7,7 @@ interface UpdaterManifest {
 	source?: string
 }
 
-interface Manifest extends Omit<Plugin, "onStart" | "onStop" | "onEnable" | "onDisable" | "getSettingsPanel" | "commands" | "patches"> {
+export interface Manifest extends Omit<Plugin, "onStart" | "onStop" | "onEnable" | "onDisable" | "getSettingsPanel" | "commands" | "patches"> {
 	updater?: UpdaterManifest
 }
 
