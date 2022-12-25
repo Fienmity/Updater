@@ -35,33 +35,33 @@ export default ({
          * @param {object} container: The main styles used for the Container of the page. This is generally only used once.
          */
         container: {
-        backgroundColor: Constants.ThemeColorMap.BACKGROUND_MOBILE_SECONDARY,
-        flex: 0.5,
+            backgroundColor: Constants.ThemeColorMap.BACKGROUND_MOBILE_SECONDARY,
+            flex: 0.5,
         },
         /**
          * @param {object} card: The color exclusively for the main Page card.
          */
         card: {
-        backgroundColor: Constants.ThemeColorMap.BACKGROUND_MOBILE_PRIMARY,
-        color: Constants.ThemeColorMap.TEXT_NORMAL
+            backgroundColor: Constants.ThemeColorMap.BACKGROUND_MOBILE_PRIMARY,
+            color: Constants.ThemeColorMap.TEXT_NORMAL
         },
         /**
          * @param {object} header: The color used for the Header at the top of the Page View.
          */
         header: {
-        backgroundColor: Constants.ThemeColorMap.BACKGROUND_MOBILE_SECONDARY,
-        shadowColor: 'transparent',
-        elevation: 0,
+            backgroundColor: Constants.ThemeColorMap.BACKGROUND_MOBILE_SECONDARY,
+            shadowColor: 'transparent',
+            elevation: 0,
         },
         /**
          * @param {object} text: The main styling for the Close Button's Text Component.
          */
         text: {
-        color: Constants.ThemeColorMap.HEADER_PRIMARY,
-        fontFamily: Constants.Fonts.PRIMARY_NORMAL,
-        fontSize: 16,
-        marginLeft: 16,
-        backgroundColor: 'transparent'
+            color: Constants.ThemeColorMap.HEADER_PRIMARY,
+            fontFamily: Constants.Fonts.PRIMARY_NORMAL,
+            fontSize: 16,
+            marginLeft: 16,
+            backgroundColor: 'transparent'
         }
     });
 
