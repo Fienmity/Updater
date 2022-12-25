@@ -1,7 +1,6 @@
 /**
  * Imports
  */
-import { getIDByName } from "enmity/api/assets";
 import { reload } from "enmity/api/native";
 import { getBoolean, set } from "enmity/api/settings"
 import { View, TouchableOpacity, Text, Image, FormRow, FormSwitch } from "enmity/components"

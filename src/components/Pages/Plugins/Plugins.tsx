@@ -7,7 +7,7 @@ import { Constants, Dialog, React, StyleSheet } from 'enmity/metro/common';
 import PluginItem from './PluginItem';
 import ExitWrapper from '../../Wrappers/ExitWrapper';
 import checkForUpdate, { Manifest as ManifestType } from '../../../util/checkForUpdate';
-import { filter_item, for_item, map_item } from '../../../util/loops';
+import { filterItem, forItem, mapItem } from '../../../util/loops';
 import { getBoolean } from 'enmity/api/settings';
 import installPlugin from '../../../util/instalPlugin';
 import { reload } from 'enmity/api/native';
@@ -32,10 +32,10 @@ export default () => {
  
     async function checkPluginsForUpdates(plugins: ManifestType[]): Promise<ManifestType[]> {
         const updatablePlugins = plugins.filter((plugin: ManifestType) => plugin.updater);
-        const updatedPlugins = await filter_item(updatablePlugins, async function(plugin: ManifestType) {
+        const updatedPlugins = await filterItem(updatablePlugins, async function(plugin: ManifestType) {
             return await checkForUpdate(plugin);
         });
-        return map_item(updatedPlugins, async function(plugin: ManifestType) {
+        return mapItem(updatedPlugins, async function(plugin: ManifestType) {
             return await checkForUpdate(plugin);
         });
     }
@@ -46,7 +46,7 @@ export default () => {
 
     async function updateHandler() {
         const availableOptions: any[] = [];
-        await for_item(plugins.filter(plugin => getBoolean(name, plugin.name, true)), async function(plugin: ManifestType) {
+        await forItem(plugins.filter(plugin => getBoolean(name, plugin.name, true)), async function(plugin: ManifestType) {
             const manifest = await checkForUpdate(plugin);
             if (manifest) {
                 availableOptions.push(manifest);
