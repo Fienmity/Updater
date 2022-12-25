@@ -7,12 +7,13 @@ import { Constants, Dialog, React, StyleSheet } from 'enmity/metro/common';
 import PluginItem from './PluginItem';
 import ExitWrapper from '../../Wrappers/ExitWrapper';
 import checkForUpdate, { Manifest as ManifestType } from '../../../util/checkForUpdate';
-import { filterItem, forItem, mapItem } from '../../../util/loops';
+import { forItem } from '../../../util/loops';
 import { getBoolean } from 'enmity/api/settings';
 import installPlugin from '../../../util/instalPlugin';
 import { reload } from 'enmity/api/native';
 import { name } from '../../../manifest.json'
 import { getPlugins } from 'enmity/managers/plugins';
+import checkPluginsForUpdates from '../../../util/checkPluginsForUpdates';
 
 /**
  * The main Search module, used to input text and store it. This is easy to make from scratch, but because Discord already made one I might aswell use it.
@@ -29,16 +30,6 @@ export default () => {
     const [isBulk, setIsBulk] = React.useState(false);
     const [query, setQuery] = React.useState([]);
     const [plugins, setPlugins] = React.useState<ManifestType[]>([])
- 
-    async function checkPluginsForUpdates(plugins: ManifestType[]): Promise<ManifestType[]> {
-        const updatablePlugins = plugins.filter((plugin: ManifestType) => plugin.updater);
-        const updatedPlugins = await filterItem(updatablePlugins, async function(plugin: ManifestType) {
-            return await checkForUpdate(plugin);
-        });
-        return mapItem(updatedPlugins, async function(plugin: ManifestType) {
-            return await checkForUpdate(plugin);
-        });
-    }
 
     React.useEffect(async function() {
         setPlugins(await checkPluginsForUpdates(getPlugins()));
