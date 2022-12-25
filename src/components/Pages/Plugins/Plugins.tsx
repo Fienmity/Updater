@@ -36,13 +36,7 @@ export default () => {
     }, []);
 
     async function updateHandler() {
-        const availableOptions: any[] = [];
-        await forItem(plugins.filter(plugin => getBoolean(name, plugin.name, true)), async function(plugin: ManifestType) {
-            const manifest = await checkForUpdate(plugin);
-            if (manifest) {
-                availableOptions.push(manifest);
-            }
-        })
+        const availableOptions: any[] = plugins.filter(plugin => getBoolean(name, plugin.name, true));
 
         availableOptions.length > 0 
             ? Dialog.show({
