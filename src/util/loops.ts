@@ -12,7 +12,7 @@ export async function for_item(array: any[], callback: any): Promise<void> {
     }
 }
 
-export async function map_item(array: any[], callback: any, label?: string): Promise<any[]> {
+export async function map_item(array: any[], callback: any): Promise<any[]> {
     let new_array = []
     for(let i = 0; i < array.length; i++) {
         new_array.push(await callback(array[i], i, array));

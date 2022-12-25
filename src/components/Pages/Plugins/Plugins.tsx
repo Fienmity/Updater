@@ -7,7 +7,7 @@ import { Constants, Dialog, React, StyleSheet } from 'enmity/metro/common';
 import PluginItem from './PluginItem';
 import ExitWrapper from '../../Wrappers/ExitWrapper';
 import checkForUpdate, { Manifest as ManifestType } from '../../../util/checkForUpdate';
-import { map_item, for_item } from '../../../util/loops';
+import { filter_item, for_item, map_item } from '../../../util/loops';
 import { getBoolean } from 'enmity/api/settings';
 import installPlugin from '../../../util/instalPlugin';
 import { reload } from 'enmity/api/native';
@@ -30,11 +30,19 @@ export default () => {
     const [query, setQuery] = React.useState([]);
     const [plugins, setPlugins] = React.useState<ManifestType[]>([])
  
-    React.useEffect(async function() {
-        setPlugins(await map_item(getPlugins().filter((plugin: ManifestType) => plugin.updater), async function(plugin) {
+    async function checkPluginsForUpdates(plugins: ManifestType[]): Promise<ManifestType[]> {
+        const updatablePlugins = plugins.filter((plugin: ManifestType) => plugin.updater);
+        const updatedPlugins = await filter_item(updatablePlugins, async function(plugin: ManifestType) {
             return await checkForUpdate(plugin);
-        }));
-    }, [])
+        });
+        return map_item(updatedPlugins, async function(plugin: ManifestType) {
+            return await checkForUpdate(plugin);
+        });
+    }
+
+    React.useEffect(async function() {
+        setPlugins(await checkPluginsForUpdates(getPlugins()));
+    }, []);
 
     async function updateHandler() {
         const availableOptions: any[] = [];
