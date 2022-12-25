@@ -7,7 +7,7 @@ import { Constants, Dialog, React, StyleSheet } from 'enmity/metro/common';
 import PluginItem from './PluginItem';
 import ExitWrapper from '../../Wrappers/ExitWrapper';
 import checkForUpdate, { Manifest as ManifestType } from '../../../util/checkForUpdate';
-import { filter_item, for_item } from '../../../util/loops';
+import { map_item, for_item } from '../../../util/loops';
 import { getBoolean } from 'enmity/api/settings';
 import installPlugin from '../../../util/instalPlugin';
 import { reload } from 'enmity/api/native';
@@ -31,7 +31,7 @@ export default () => {
     const [plugins, setPlugins] = React.useState<ManifestType[]>([])
  
     React.useEffect(async function() {
-        setPlugins(await filter_item(getPlugins().filter((plugin: ManifestType) => plugin.updater), async function(plugin) {
+        setPlugins(await map_item(getPlugins().filter((plugin: ManifestType) => plugin.updater), async function(plugin) {
             return await checkForUpdate(plugin);
         }));
     }, [])
