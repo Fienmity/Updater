@@ -1,5 +1,7 @@
 import { getPlugins, Plugin, registerPlugin } from 'enmity/managers/plugins';
+import { React } from 'enmity/metro/common';
 import { Logger, Toasts } from 'enmity/metro/common';
+import Settings from './components/Settings/Settings';
 import Manifest from './manifest.json';
 import checkForUpdate, { Manifest as ManifestType } from './util/checkForUpdate';
 
@@ -39,6 +41,10 @@ const Updater: Plugin = {
    onStop() {
 
    },
+
+   getSettingsPanel({ settings }) {
+      return <Settings settings={settings} />
+   }
 };
 
 registerPlugin(Updater);
