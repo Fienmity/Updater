@@ -4,6 +4,7 @@ import checkPluginsForUpdates from './func/checkPluginsForUpdates';
 import getUpdatablePlugins from './func/getUpdatablePlugins';
 import prettyList from './util/prettyList';
 import Manifest from './manifest.json';
+import Settings from './components/Settings/Settings';
 
 const UpdaterLogger = new Logger('Updater');
 
@@ -33,7 +34,11 @@ const Updater: Plugin = {
 
    onStop() {
 
-   }
+   },
+
+   getSettingsPanel({ settings }) {
+      return <Settings settings={settings} />
+   },
 };
 
 registerPlugin(Updater);
